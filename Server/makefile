@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -g -Wall
-OBJS = gpio.o
+OBJS = gpio.o server.o
 TARGET = server
 
 $(TARGET): $(OBJS)
