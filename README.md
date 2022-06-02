@@ -17,6 +17,11 @@ git clone https://github.com/Al-Jal-Ddak-System/Virtual-face-checking.git
 cd Virtual-face-checking
 ```
 
+#### Case : Raspberry Pi can't connect Internet
+
+1. local setting
+2. `$ scp (-r) (file or directory name) (id)@(ip):(target directory)`
+
 ### Directories
 
 * Server
