@@ -18,6 +18,10 @@
 7. clone
    * `git clone https://github.com/the-raspberry-pi-guy/lcd.git`
 
+## Connect
+
+![image](https://user-images.githubusercontent.com/48989903/171648403-89ccbb6b-3e10-4902-8bf3-698f5b73641d.png)
+
 ## Run
 
 1. `cd lcd`
