@@ -53,4 +53,4 @@ except KeyboardInterrupt:
 
 #### Reference
 
-* https://velog.io/@dogakday/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B4-1602-I2C-%EC%BA%90%EB%A6%AD%ED%84%B0-LCE-%EC%82%AC%EC%9A%A9-Python-%ED%8C%8C%EC%9D%B4%EC%8D%AC
+* [라즈베리파이 1602 I2C 캐릭터 LCD 사용 (Python, 파이썬)](https://velog.io/@dogakday/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B4-1602-I2C-%EC%BA%90%EB%A6%AD%ED%84%B0-LCE-%EC%82%AC%EC%9A%A9-Python-%ED%8C%8C%EC%9D%B4%EC%8D%AC)
