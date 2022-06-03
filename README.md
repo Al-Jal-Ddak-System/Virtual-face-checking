@@ -17,12 +17,26 @@ git clone https://github.com/Al-Jal-Ddak-System/Virtual-face-checking.git
 cd Virtual-face-checking
 ```
 
-#### Case : Raspberry Pi can't connect Internet
+## Trouble Shooting !
 
-1. local setting
-2. `$ scp (-r) (file or directory name) (id)@(ip):(target directory)`
+#### 1. Vim edit error
 
-### Directories
+`sudo apt-get install vim-gui-common`  
+`sudo apt-get install vim-runtime`  
+`vim ~/.vimrc`
+```
+" ~/.vimrc
 
-* Server
-* etc ...
+set number
+set tabstop=4
+set ignorecase
+set hlsearch
+set fileencodings=utf-8,euc-kr
+set bs=indent,eol,start
+set ruler
+set title
+set showmatch
+set nowrap
+set wmnu
+syntax on
+```
