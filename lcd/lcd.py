@@ -3,13 +3,13 @@ from time import sleep
 from socket import *
 
 class SocketInfo():
-    HOST = "192.168.0.7"
+    HOST = "192.168.0.14"
     PORT = 8888
     BUFSIZE = 50
     ADDR = (HOST, PORT)
 
 class socketInfo(SocketInfo):
-    HOST = "192.168.0.7"
+    HOST = "192.168.0.14"
 
 def run():
     display = drivers.Lcd()
