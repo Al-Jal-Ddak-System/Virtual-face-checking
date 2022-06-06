@@ -1,12 +1,12 @@
-# Virtual-face-checking
+# 😉Virtual-face-checking for vTuber
 
-Our system detect facial expression, sound, and heartbeat through Rasberry Pi.
+> Our system detects facial expression, sound, and heart rate through Rasberry Pi.
 
-## Members😎
+## 😎Members
 
 |정배규|이진기|김태윤|
 |:--:|:--:|:--:|
-|<a href="https://github.com/baelanche"><img src="https://avatars.githubusercontent.com/u/48989903?v=4" width="200" height="200"/></a>|<a href="https://github.com/mearth99"><img src="https://avatars.githubusercontent.com/u/90100440?v=4" width="200" height="200"/></a>|<a href="https://github.com/Chokoty"><img src="https://avatars.githubusercontent.com/u/5837692?v=4" width="200" height="200"/></a>|
+|<a href="https://github.com/baelanche"><img src="https://avatars.githubusercontent.com/u/48989903?v=4" width="150" height="150"/></a>|<a href="https://github.com/mearth99"><img src="https://avatars.githubusercontent.com/u/90100440?v=4" width="150" height="150"/></a>|<a href="https://github.com/Chokoty"><img src="https://avatars.githubusercontent.com/u/5837692?v=4" width="150" height="150"/></a>|
 
 ## Get ready
 
@@ -17,7 +17,40 @@ git clone https://github.com/Al-Jal-Ddak-System/Virtual-face-checking.git
 cd Virtual-face-checking
 ```
 
+
+## ⚙ HARDWARE
+<img src="./assets/total.png">
+
+### 1. Camera Pi -> replace to Laptop webCam
+* Pi
+* piCamera 
+
+### 2. Sound & Heart rate Pi 
+* Pi
+* Sound Sensor
+* Heard rate Sensor
+
+### 3. Server Pi 
+* pi
+* 1602 LCD 
+
+</br>
+
+
+## Process 
+<img src="./assets/algorithm.png">  
+
+
+</br>
+
 ## Trouble Shooting !
+
+* Can't install OpenCV to Pi.
+* Can't use emotion detection library in Pi.
+* 
+
+
+
 
 #### 1. Vim edit error
 
