@@ -26,18 +26,6 @@ void error_handling(char *message)
 
 int main(int argc, char *argv[])
 {
-
-    int emotion_idx = 0;
-    int loud_sound = 0;
-    int prev_sound = 0; 
-    int sound_change = 0;
-    int bpm = 0;
-    int bpm_change = 0;
-    // 심박 증가 => 불안 
-    // class_labels=['Angry','Disgust', 'Fear', 'Happy','Neutral','Sad','Surprise']
-    // 
-
-
     int serv_sock, clnt_sock = -1;
     struct sockaddr_in serv_addr, clnt_addr;
     socklen_t clnt_addr_size;
@@ -82,9 +70,8 @@ int main(int argc, char *argv[])
     while (1)
     {
         // state = GPIORead(PIN);
-        // read();
-        // snprintf(msg, 5, "%s", "haha");
-        // write(clnt_sock, msg, sizeof(msg));
+        snprintf(msg, 5, "%s", "haha");
+        write(clnt_sock, msg, sizeof(msg));
         // printf("msg = %s\n", msg);
         usleep(100000);
     }
