@@ -14,18 +14,18 @@ from keras.preprocessing import image
 import cv2
 import numpy as np
 
-# ====================== socket
+# ====================== socket - set
 from time import sleep
 from socket import *
 import sys
 
 args = sys.argv
-# print(args)
+HOST = args[1]
+PORT = int(args[2])
 
-csock = socket(AF_INET, SOCK_STREAM)
-# csock.connect(("192.168.0.14", 8888))
-csock.connect((args[1], int(args[2])))
-# ====================== socket
+server_sock = socket(AF_INET, SOCK_STREAM)
+server_sock.connect((HOST, PORT))
+# ====================== socket 
 
 
 face_classifier=cv2.CascadeClassifier('./haarcascade/haarcascade_frontalface_default.xml')
@@ -57,15 +57,12 @@ while True:
         label_position=(x,y)
         cv2.putText(frame,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
 
-        # ====================== socket
-        line = preds.argmax()
-        print(label, line)
-        # C_sock = ctypes.CDLL('./client.so')
-        # ad = C_sock.main()
-        # C_sock.data(int(line),ad)
-        # ccc = csock.recv(1024)
-        #print(ccc)
-        #csock.sendall(line.encode())
+        # ====================== socket - send data
+        data = class_labels.index(label)
+        data = str(data)
+        data = "c=" + data + "\n"
+        print(data)
+        server_sock.sendall(data.encode())
         # ====================== socket
    
    
