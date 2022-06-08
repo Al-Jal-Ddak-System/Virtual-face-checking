@@ -15,7 +15,7 @@
 #define POUT 17 
 
 
-// 이 문장은 서버 통신 -클라이언트 부분입니다.
+// 이 문장은 서버 통신 - 클라이언트 부분입니다.
 int sock;
 struct sockaddr_in serv_addr;
 char msg2[4];
