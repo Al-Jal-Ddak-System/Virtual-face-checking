@@ -17,31 +17,132 @@
 #define PIN 20
 #define POUT 21
 
+void reset(int *a,int *b,int *c) {
+    *a = 0;
+    *b = 0;
+    *c = 0;
+}
+
 void error_handling(char *message)
 {
     fputs(message, stderr);
     fputc('\n', stderr);
     exit(1);
 }
+int heart=0;
+int sound=0;
+int emotion=0;
+void* camera(void *data)
+{
+    int sockfd = *((int *) data);
+    int readn;
+    socklen_t addrlen;
+    char buf[1024];
+    struct sockaddr_in clnt_addr;
+    memset(buf, 0x00, 1024);
+    addrlen = sizeof(clnt_addr);
+    getpeername(sockfd, (struct sockaddr *)&clnt_addr, &addrlen);
+    
+    int std_bpm = 50;
+    while((readn = read(sockfd, buf, 1024)) > 0) {
+        char *msg;
+        FILE *fp = fopen("lcd.txt", "w");
+        // printf("DATA : %s (%d) : %s", inet_ntoa(clnt_addr.sin_addr), ntohs(clnt_addr.sin_port), buf);
+        if(buf[0] == 'h') {
+            // h++;
+            char *hh = strtok(buf, "=");
+            hh = strtok(NULL, " ");
+            heart = atoi(hh);
+        }
+        if(buf[0] == 's') {
+            char *ss = strtok(buf, "=");
+            ss = strtok(NULL, " ");
+            sound = atoi(ss);
+        }
+        if(buf[0] == 'c' && heart>0) {
+            char *cc = strtok(buf, "=");
+            cc = strtok(NULL, " ");
+            emotion = atoi(cc);
+            int avg_bpm = heart;
+            if(emotion == 0) {
+                if(avg_bpm >= std_bpm) {
+                    //printf("Angry\n");
+                    msg = "Angry";
+                } else if(avg_bpm < std_bpm) {
+                    //printf("Disgust\n");
+                    msg = "Disgust";
+                } else {
+                    //printf("Angry\n");
+                    msg = "Angry";
+                }
+            } else if(emotion == 1) {
+                //printf("Disgust\n");
+                msg = "Disgust";
+            } else if(emotion == 2) {
+                //printf("Fear\n");
+                msg = "Faer";
+            } else if(emotion == 3) {
+                if(sound > 0) {
+                    //printf("Laughing\n");
+                    msg = "Laughing";
+                } else {
+                    //printf("Happy\n");
+                    msg = "Happy";
+                }
+            } else if(emotion == 4) {
+                if(avg_bpm >= std_bpm+10) {
+                    //printf("Fear\n");
+                    msg = "Fear";
+                } else {
+                    //printf("Neutral\n");
+                    msg = "Neutral";
+                }
+            } else if(emotion == 5) {
+                if(sound > 0) {
+                    //printf("Crying\n");
+                    msg = "Crying";
+                } else {
+                    //printf("Sad\n");
+                    msg = "Sad";
+                }
+            } else if(emotion ==6){
+                if( avg_bpm >= std_bpm) {
+                    //printf("Fear\n");
+                    msg = "Fear";
+                } else if(avg_bpm >= std_bpm && sound > 0) {
+                    //printf("Screaming\n");
+                    msg = "Screaming";
+                } else {
+                    // printf("Surprised\n");
+                    msg = "Surprised";
+                }
+            } else{
+                msg = "Neutral";
+            }
+            printf("표정: %d, 심박수: %d, 데시벨: %d => 결과: %s\n",emotion,avg_bpm,sound,msg);
+            fwrite(msg, strlen(msg), 1, fp);
+            reset(&heart, &sound,&emotion);
+        }
+        memset(buf, 0x00, 1024);
+        fclose(fp);
+        usleep(100000);
+    }
+    close(sockfd);
+
+    return 0;
+}
 
 int main(int argc, char *argv[])
 {
-
-    int emotion_idx = 0;
-    int loud_sound = 0;
-    int prev_sound = 0; 
-    int sound_change = 0;
-    int bpm = 0;
-    int bpm_change = 0;
-    // 심박 증가 => 불안 
-    // class_labels=['Angry','Disgust', 'Fear', 'Happy','Neutral','Sad','Surprise']
-    // 
-
-
     int serv_sock, clnt_sock = -1;
     struct sockaddr_in serv_addr, clnt_addr;
-    socklen_t clnt_addr_size;
-    char msg[8];
+
+    int listen_fd, client_fd;
+    socklen_t addrlen;
+    pthread_t thread_id;
+    // 심박 증가 => 불안
+    // class_labels=['Angry','Disgust', 'Fear', 'Happy','Neutral','Sad','Surprise']
+    //
 
     // Enable GPIO pins
     if (-1 == GPIOExport(PIN) || -1 == GPIOExport(POUT))
@@ -56,45 +157,57 @@ int main(int argc, char *argv[])
         printf("Usage : %s <port>\n", argv[0]);
     }
 
-    // ============[ create socket ] 
-    serv_sock = socket(PF_INET, SOCK_STREAM, 0);
-    if (serv_sock == -1)
+    // ============[ create socket ]
+    listen_fd = socket(PF_INET, SOCK_STREAM, 0);
+    if (listen_fd == -1)
         error_handling("socket() error");
-    memset(&serv_addr, 0, sizeof(serv_addr));
+    memset(&serv_addr, 0x00, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     serv_addr.sin_port = htons(atoi(argv[1]));
-    if (bind(serv_sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
+    if (bind(listen_fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
         error_handling("bind() error");
-    if (listen(serv_sock, 5) == -1)
-        error_handling("listen() error");
-    if (clnt_sock < 0)
-    {
-        clnt_addr_size = sizeof(clnt_addr);
-        clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_addr, &clnt_addr_size);
-        if (clnt_sock == -1)
-            error_handling("accept() error");
-    }else if (clnt_sock > 0){
-        printf("client connected...\n");
-    }
 
-    // ============[ server act ] 
+    if (listen(listen_fd, 5) == -1)
+        error_handling("listen() error");
+
     while (1)
     {
-        // state = GPIORead(PIN);
-        // read();
-        // snprintf(msg, 5, "%s", "haha");
-        // write(clnt_sock, msg, sizeof(msg));
-        // printf("msg = %s\n", msg);
-        usleep(100000);
+        addrlen = sizeof(clnt_addr);
+        client_fd = accept(listen_fd, (struct sockaddr *)&clnt_addr, &addrlen);
+        if(client_fd == -1) {
+            error_handling("accept error");
+        } else {
+            pthread_create(&thread_id, NULL, camera, (void *) &client_fd);
+            pthread_detach(thread_id);
+        }
+        // str_len = read(clnt_sock, msg, sizeof(msg));
+        // if (str_len == -1)
+        //     error_handling("read() error");
+
+        // str_len = read(clnt_sock2, msg2, sizeof(msg2));
+        // if (str_len == -1)
+        //     error_handling("read() error");
+
+        // str_len = read(clnt_sock2, msg3, sizeof(msg3));
+        // if (str_len == -1)
+        //     error_handling("read() error");
+
+        // // strcat(msg, " ");
+        // // strcat(msg, msg2);
+        // printf("%s %s %s\n", msg, msg2, msg3);
+        // FILE *fp = fopen("lcd.txt", "w");
+        // fwrite(msg, strlen(msg), 1, fp);
+        // fclose(fp);
+
+        // usleep(100000);
     }
-
-
 
     close(clnt_sock);
     close(serv_sock);
     // Disable GPIO pins
     if (-1 == GPIOUnexport(PIN) || -1 == GPIOUnexport(POUT))
         return (4);
+
     return (0);
 }

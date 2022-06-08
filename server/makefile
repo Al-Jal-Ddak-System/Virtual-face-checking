@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -lpthread
 OBJS = gpio.o server.o
 TARGET = server
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS)
+	$(CC) -o $@ $(OBJS) $(CFLAGS)
 	
 clean:
 	rm -f *.o
