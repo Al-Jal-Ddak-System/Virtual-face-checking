@@ -1,5 +1,5 @@
-#define BUFFER_MAX 3
 #define DIRECTION_MAX 35
+#define BUFFER_MAX 3
 #define VALUE_MAX 30
 
 #define IN 0
