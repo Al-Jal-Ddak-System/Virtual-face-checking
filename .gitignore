@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 # Output files
-server
+server/server
 hs_client
