@@ -22,6 +22,15 @@ cd Virtual-face-checking
 
 ## ⚙ HARDWARE
 
+<br/>
+
+My Raspberry Pi
+
+* Processor : armv7l (32bit)  
+* OS : Debian bullseye
+
+<hr/>
+
 ### 1. Camera Pi -> replace to Laptop webCam
 
 * RPi
@@ -39,7 +48,6 @@ cd Virtual-face-checking
 * 1602 LCD 
 
 </br>
-
 
 ## Run & Process 
 
