@@ -51,33 +51,4 @@ cd Virtual-face-checking
 
 </br>
 
-## Trouble Shooting !
-
-* Can't install OpenCV to Pi.
-* Can't use emotion detection library in Pi.
-* 
-
-
-
-
-#### 1. Vim edit error
-
-`sudo apt-get install vim-gui-common`  
-`sudo apt-get install vim-runtime`  
-`vim ~/.vimrc`
-```
-" ~/.vimrc
-
-set number
-set tabstop=4
-set ignorecase
-set hlsearch
-set fileencodings=utf-8,euc-kr
-set bs=indent,eol,start
-set ruler
-set title
-set showmatch
-set nowrap
-set wmnu
-syntax on
-```
+## [Trouble Shooting !](https://github.com/Al-Jal-Ddak-System/Virtual-face-checking/blob/main/TS.md)
