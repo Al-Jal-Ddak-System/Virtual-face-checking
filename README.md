@@ -2,6 +2,8 @@
 
 > Our system detects facial expression, sound, and heart rate through Rasberry Pi.
 
+<br/>
+
 ## 😎Members
 
 |정배규|이진기|김태윤|
@@ -19,27 +21,33 @@ cd Virtual-face-checking
 
 
 ## ⚙ HARDWARE
-<img src="./assets/total.png">
 
 ### 1. Camera Pi -> replace to Laptop webCam
-* Pi
-* piCamera 
+
+* RPi
+* Camera 
 
 ### 2. Sound & Heart rate Pi 
-* Pi
+
+* RPi
 * Sound Sensor
 * Heard rate Sensor
 
 ### 3. Server Pi 
-* pi
+
+* RPi
 * 1602 LCD 
 
 </br>
 
 
-## Process 
-<img src="./assets/algorithm.png">  
+## Run & Process 
 
+![image](https://user-images.githubusercontent.com/48989903/173029136-220cbfa3-39f9-4621-8daa-29ae4cc791a9.png)
+
+![image](https://user-images.githubusercontent.com/48989903/173029280-c0698a5f-d76b-419d-b753-dee926c92d77.png)
+
+![image](https://user-images.githubusercontent.com/48989903/173029343-1a0f152d-4166-4735-9c0f-7d09da00c05c.png)
 
 </br>
 
