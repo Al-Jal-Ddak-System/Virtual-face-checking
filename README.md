@@ -2,6 +2,10 @@
 
 > Our system detects facial expression, sound, and heart rate through Rasberry Pi.
 
+> About our project(google slide): [link](https://docs.google.com/presentation/d/1FKV1aTw7bnnheVnxHixYhdtUymMmyvk-CDrmSaHVz24/edit?usp=sharing)  
+> Project History(Notion): [link](https://chokoty.notion.site/9925a7cd35dc47f28d18e15941bf2461)
+
+
 <br/>
 
 ## 😎Members
