@@ -148,5 +148,3 @@ $ python3
 $ cd ~/.virtualenv/cv/lib/python3.9/site-package/
 $ ln -s /user/local/lib/python3.9/site-package/cv2.so cv2.so
 ```
-
-## 3. Install Tensorflow on RPI
