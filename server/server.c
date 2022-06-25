@@ -17,10 +17,14 @@
 #define PIN 20
 #define POUT 21
 
+pthread_mutex_t mutex_lock;
+
 void reset(int *a,int *b,int *c) {
+    pthread_mutex_lock(&mutex_lock);
     *a = 0;
     *b = 0;
     *c = 0;
+    pthread_mutex_unlock(&mutex_lock);
 }
 
 void error_handling(char *message)
@@ -29,11 +33,12 @@ void error_handling(char *message)
     fputc('\n', stderr);
     exit(1);
 }
-int heart=0;
-int sound=0;
-int emotion=0;
 void* camera(void *data)
 {
+    int heart=0;
+    int sound=0;
+    int emotion=0;
+   
     int sockfd = *((int *) data);
     int readn;
     socklen_t addrlen;
@@ -52,17 +57,23 @@ void* camera(void *data)
             // h++;
             char *hh = strtok(buf, "=");
             hh = strtok(NULL, " ");
+            pthread_mutex_lock(&mutex_lock);
             heart = atoi(hh);
+            pthread_mutex_unlock(&mutex_lock);
         }
         if(buf[0] == 's') {
             char *ss = strtok(buf, "=");
             ss = strtok(NULL, " ");
+            pthread_mutex_lock(&mutex_lock);
             sound = atoi(ss);
+            pthread_mutex_unlock(&mutex_lock);
         }
         if(buf[0] == 'c' && heart>0) {
             char *cc = strtok(buf, "=");
             cc = strtok(NULL, " ");
+            pthread_mutex_lock(&mutex_lock);
             emotion = atoi(cc);
+            pthread_mutex_unlock(&mutex_lock);
             int avg_bpm = heart;
             if(emotion == 0) {
                 if(avg_bpm >= std_bpm) {
